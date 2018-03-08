@@ -5,7 +5,57 @@
 ##### 项目名称：PCAP 文件解析器（PCAP Tree Viewer）
 ##### 开发人员：肖佳伟（515030910023）
 
+- [简要概述](#abstract)
+- [项目构想](#about)
+    * 项目名称
+    * 主要内容
+    * 模块分划
+        - 图形界面
+        - 辅助工具
+        - 依赖函数
+    * 预期功能
+- [项目实施](#develop)
+    * 开发进度
+    * 相关资料
+- [项目支持](#support)
+    * 开发环境
+    * 软件系统
+    * 依赖工具
+        - 开发工具
+        - 软件依赖
+        - 其他工具
+    * 操作系统
+- [项目设计](#design)
+    * [安装方法](#install)
+    * [安装依赖](#deps)
+    * [工作流程](#procedure)
+- [用户界面](#ui)
+    * [图形界面](#graphic)
+        - [菜单](#menu)
+        - [显示界面](#mainpage)
+        - [其他](#others)
+    * [交互界面](#console)
+- [辅助工具](#jspcapy)
+- [依赖函数](#dependencies)
+    * [解包工具](#jspcap)
+        - [解析算法](#extractor)
+        - [重组算法](#reassembly)
+            * [IP 分片重组](#ip)
+                - [IPv4](#ipv4)
+                - [IPv6](#ipv6)
+            * [TCP 报文重组](#tcp)
+        - [根协议](#protocols)
+        - [协议族](#family)
+        - [异常类](#exceptions)
+    * [格式输出](#jsformat)
+- [项目总结](#report)
+
+
+---
+
 &nbsp;
+
+<a name="abstract"> </a>
 
 ## 简要概述
 
@@ -19,16 +69,16 @@
 
 &nbsp;
 
+<a name="about"> </a>
+
 ## 项目构想
 
  - 项目名称：PCAP 文件解析器（PCAP Tree Viewer）
-
  - 主要内容：
     * 读取 PCAP 文件，并解析数据包信息
     * 在命令行使用的文件解析工具
     * 易用的用户交互界面
     * 格式化输出
-
  - 模块分划：
      * 用户界面（UI）
         - 图形界面（Graphic UI）—— 基于 `Tkinter` 的图形用户界面
@@ -37,7 +87,6 @@
      * 依赖函数（Dependencies）
         - 解包工具（Extractor）—— 读取 PCAP 文件，并解析数据
         - 格式输出（Dumper）—— 依据一定格式输出文件
-
  - 预期功能：
     * 当系统依赖正常时，可使用图形界面进行交互；如出现异常，则可通过终端交互。
     * 可根据用户的选择，解析 PCAP 文件并从中提取网络数据包的信息，同时支持简易查找功能。
@@ -45,6 +94,8 @@
     * 提供命令行工具，实现上述解析和导出的功能。
 
 &nbsp;
+
+<a name="develop"> </a>
 
 ## 项目实施
 
@@ -54,7 +105,6 @@
     * 11月中至11月底：设计并完成用户界面的开发和调试
     * 11月底至12月初：完成命令行工具的开发与调试
     * 12月初至12月中：项目综合调试与细节修改，撰写文档
-
  - 相关资料
     * [Python 标准库](https://docs.python.org/3.6/library/)
     * [`Tkinter` 文档](http://infohost.nmt.edu/tcc/help/pubs/tkinter/)
@@ -63,14 +113,14 @@
 
 &nbsp;
 
+<a name="support"> </a>
+
 ## 项目支持
 
  - 开发环境：macOS High Sierra (Version 10.13.2 Beta)
-
  - 软件系统：
     * Python 3.6.3
     * Pypy 3.5.3
-
  - 依赖工具：
     * 开发工具：
         - Atom 1.22.1 —— 代码编辑工具
@@ -85,13 +135,14 @@
     * 其他工具：
         - Python 标准库
         - [ASCII Art](https://en.wikipedia.org/wiki/ASCII_art) 生成工具
-
  - 操作系统：
     * macOS
     * Windows（仅在 Windows 7 虚拟机上测试，图形界面或因机型而异）
     * Linux（图形界面或受硬件及设置等因素影响）
 
 &nbsp;
+
+<a name="design"> </a>
 
 ## 项目设计
 
@@ -106,6 +157,8 @@
     * 格式输出（Dumper）—— `jsformat/`
 
 其中，上述辅助工具和依赖函数可以通过 `pip` 或从 `GitHub` 下载源码安装，并作为第三方库使用。
+
+<a name="install"> </a>
 
 ##### 安装方法
 
@@ -137,6 +190,8 @@
     $ python setup.py install
     ```
 
+<a name="deps"> </a>
+
 ##### 安装依赖
 
 &emsp; &emsp; 在项目中，除 Python 标准库外，还使用到了一些第三方库，或需要事先安装，特枚列如下：
@@ -155,6 +210,8 @@
      $ pip uninstall -y pyobjc pyobjc-core pyobjc-framework-Accounts pyobjc-framework-AddressBook pyobjc-framework-AppleScriptKit pyobjc-framework-AppleScriptObjC pyobjc-framework-ApplicationServices pyobjc-framework-Automator pyobjc-framework-AVFoundation pyobjc-framework-AVKit pyobjc-framework-CalendarStore pyobjc-framework-CFNetwork pyobjc-framework-CloudKit pyobjc-framework-Cocoa pyobjc-framework-Collaboration pyobjc-framework-ColorSync pyobjc-framework-Contacts pyobjc-framework-ContactsUI pyobjc-framework-CoreBluetooth pyobjc-framework-CoreData pyobjc-framework-CoreLocation pyobjc-framework-CoreML pyobjc-framework-CoreServices pyobjc-framework-CoreSpotlight pyobjc-framework-CoreText pyobjc-framework-CoreWLAN pyobjc-framework-CryptoTokenKit pyobjc-framework-DictionaryServices pyobjc-framework-DiskArbitration pyobjc-framework-EventKit pyobjc-framework-ExceptionHandling pyobjc-framework-ExternalAccessory pyobjc-framework-FinderSync pyobjc-framework-FSEvents pyobjc-framework-GameCenter pyobjc-framework-GameController pyobjc-framework-GameKit pyobjc-framework-GameplayKit pyobjc-framework-ImageCaptureCore pyobjc-framework-IMServicePlugIn pyobjc-framework-InputMethodKit pyobjc-framework-InstallerPlugins pyobjc-framework-InstantMessage pyobjc-framework-Intents pyobjc-framework-IOSurface pyobjc-framework-iTunesLibrary pyobjc-framework-LatentSemanticMapping pyobjc-framework-LaunchServices pyobjc-framework-LocalAuthentication pyobjc-framework-MapKit pyobjc-framework-MediaAccessibility pyobjc-framework-MediaLibrary pyobjc-framework-MediaPlayer pyobjc-framework-ModelIO pyobjc-framework-MultipeerConnectivity pyobjc-framework-NetFS pyobjc-framework-NetworkExtension pyobjc-framework-NotificationCenter pyobjc-framework-OpenDirectory pyobjc-framework-Photos pyobjc-framework-PhotosUI pyobjc-framework-PreferencePanes pyobjc-framework-PubSub pyobjc-framework-QTKit pyobjc-framework-Quartz pyobjc-framework-SafariServices pyobjc-framework-SceneKit pyobjc-framework-ScreenSaver pyobjc-framework-ScriptingBridge pyobjc-framework-SearchKit pyobjc-framework-ServiceManagement pyobjc-framework-Social pyobjc-framework-SpriteKit pyobjc-framework-StoreKit pyobjc-framework-SyncServices pyobjc-framework-SystemConfiguration pyobjc-framework-Vision pyobjc-framework-WebKit
      ```
 
+<a name="procedure"> </a>
+
 ##### 工作流程
 
 &emsp; &emsp; 为便于更直观的了解项目格式，可将项目调用逻辑及其工作流程表示如下：
@@ -163,7 +220,11 @@
 
 &nbsp;
 
+<a name="ui"> </a>
+
 ### 用户界面（UI）
+
+<a name="graphic"> </a>
 
 #### 图形界面（Graphic UI）
 
@@ -172,6 +233,8 @@
 &emsp; &emsp; **PCAP Tree Viewer** 的图形界面基于 `Tkinter` 库实现。其界面采取 ASCII 画风，追求简洁明了，而菜单栏的设计则仿照 macOS 平台的原生应用。但需要指出的是，由于缺少系统层面 API 的调用权限，其中的部分功能暂未实现。
 
 ![](doc/init.png)
+
+<a name="menu"> </a>
 
 ##### 菜单
 
@@ -247,6 +310,8 @@
 
 &emsp; &emsp; 由于 `Tkinter` 在 macOS 平台上需要调用 Python 内置的 `Python.app` 才能正常工作，因此必然在菜单栏出现默认的 `Python` 主菜单。通过 `PyObjc` 库中的 `Foundation.NSBundle` 可对其 `info.plist` 文件中的应用名称进行修改，使得菜单首栏显示为 `PCAP Tree Viewer`，但并不能通过 `Tkinter` 提供的 API 修改下拉菜单的内容。
 
+<a name="mainpage"> </a>
+
 ##### 显示界面
 
 &emsp; &emsp; 在点击 `Open...` 或唤起菜单栏中 `File -> Open...` 选项后，选择 PCAP 文件，亦可从 `File -> Open Recent -> ...` 中选择此前曾打开过的文件。如果选择的文件类型错误，将会提示错误信息；反之，可进入如下解析并加载界面：
@@ -263,13 +328,17 @@
 
 &emsp; &emsp; 需要说明的是，有一部分功能由于能力未及，并未实现——如根据程序当前状态，禁用部分菜单栏的功能（作为鲁棒性补偿，当前 UI 将在错误使用时提示错误信息）。此外，在 `Help` 栏中，macOS 系统内置了查询帮助功能，即 `Help -> Search`，故为保持各系统 UI 外观一致，在非 macOS 系统的菜单中也添加了这一选项，但并未实现。
 
+<a name="others"> </a>
+
 ##### 其他
 
-&emsp; &emsp; 为了增强程序的可用性，在 `src/` 文件夹中还有相关信息、使用帮助等文件。这些内容，通过图形界面均可访问并查看。另外，在菜单栏中，`Help -> View on GitHub` 选项还提供了打开浏览器，并跳转本项目 [repo](https://github.com/JarryShaw/jspcap/) 的功能。
+&emsp; &emsp; 为了增强程序的可用性，在 `src/` 文件夹中还有相关信息、使用帮助等文件。这些内容，通过图形界面均可访问并查看。另外，在菜单栏中，`Help -> View on GitHub` 选项还提供了打开浏览器，并跳转本项目 [repo](https://github.com/JarryShaw/TreeViewer/) 的功能。
 
 &emsp; &emsp; 如上所述，图形界面仍留有少数功能未能实现。而笔者目前正在研究如何利用 `PyObjc` 库、`py2app` 转换包装和 `xib` 图形界面标记格式，使用 Python 在 macOS 平台上编写原生应用程序。
 
 &nbsp;
+
+<a name="console"> </a>
 
 #### 交互界面（Console UI）
 
@@ -292,6 +361,8 @@
 &emsp; &emsp; 需要指出的是，在代码实现的过程中，笔者意外发现 Python 标准库中提供了一个名为 `curses` 的库，可用其在终端中绘制图形界面。考虑到能力未及，因而并未深入尝试。
 
 &nbsp;
+
+<a name="jspcapy"> </a>
 
 ### 辅助工具（Command Line Tool）
 
@@ -386,7 +457,11 @@ optional arguments:
 
 &nbsp;
 
+<a name="dependencies"> </a>
+
 ### 依赖函数（Dependencies）
+
+<a name="jspcap"> </a>
 
 #### 解包工具（Extractor）
 
@@ -408,7 +483,9 @@ optional arguments:
 
 &emsp; &emsp; 各部分内容的派生逻辑如下图所示：
 
-![](doc/jspcap.jpg)
+![](doc/jspcap.png)
+
+<a name="extractor"> </a>
 
 ##### 解析算法
 
@@ -418,6 +495,8 @@ optional arguments:
 
 &emsp; &emsp; 此外，`Extractor` 类支持自动解析，或迭代解析两种模式。以基于`jspcap` 实现的命令行工具 [`jspcapy`](https://github.com/JarryShaw/jspcap/tree/master/jspcapy) 的使用为例， `verbose` 模式下为迭代解析，从而可获取每一数据帧的信息；而自动模式则为自动解析，直接完成解析过程，并输出文件。
 
+<a name="reassembly"> </a>
+
 ##### 重组算法
 
 &emsp; &emsp; 本部分参考了 [`RFC 791`](https://tools.ietf.org/html/rfc791) 和 [`RFC 815`](https://tools.ietf.org/html/rfc815) 中描述的两种算法。前者详细描述了 IP 包分片及重组的算法实现，其中使用到了 `RCVBT`，即“已接收比特哈希表”来维护接收顺序；而后者则针对上述 `RCVBT` 进行了优化，提出了一种替代算法。
@@ -425,6 +504,8 @@ optional arguments:
 &emsp; &emsp; 为了便于算法的实现和使用，此处首先在 `jspcap/reassembly/reassembly.py` 中声明了一个名为 `Reassembly` 的抽象基类（Abstract Base Class），其效果等同于根协议。其中指定了一些抽象属性，如 `name`、`count` 和 `datagram` 等；一些抽象函数，如 `reassembly` 和 `submit`，分别用于重组过程和重组完成后提取结果；以及一些工具函数。
 
 &emsp; &emsp; 需要指出的是，同解析算法中的 `Extractor` 一样，此处也提供两种模式，可通过 `run` 方法完成多个数据包的重组；或通过直接调用，即 `__call__` 方法，逐次输入进行重组。
+
+<a name="ip"> </a>
 
 ###### IP 分片重组
 
@@ -510,7 +591,9 @@ Procedure:
     |--> (tuple) BUFID ...
 ```
 
-####### IPv4
+<a name="ipv4"> </a>
+
+####### __IPv4__
 
 &emsp; &emsp; 针对上述算法，以下将大致解释 IPv4 分片重组的使用方法和符号意义。
 
@@ -554,7 +637,9 @@ Procedure:
     |--> (Info) data ...
 ```
 
-####### IPv6
+<a name="ipv6"> </a>
+
+####### __IPv6__
 
 &emsp; &emsp; 针对上述算法，以下将大致解释 IPv6 分片重组的使用方法和符号意义。
 
@@ -597,6 +682,8 @@ Procedure:
     |                         |--> (bytes/None) IPv6 payload fragment
     |--> (Info) data ...
 ```
+
+<a name="tcp"> </a>
 
 ###### TCP 报文重组
 
@@ -679,6 +766,8 @@ Procedure:
     |--> (Info) data ...
 ```
 
+<a name="protocols"> </a>
+
 ##### 根协议
 
 &emsp; &emsp; 根协议，特指在 `jspcap/protocols/protocol.py` 中实现的 `Protocol` 类。其为一抽象基类（Abstract Base Class），定义了在协议族中需要用到一些通用方法，如 `unpack`、`binary` 和 `read` 等。此外，还指定了一些抽象属性，需要在协议族中重载，如 `name`、`info` 和 `length` 等。
@@ -707,6 +796,8 @@ Info(foo='foo_arg', bar='bar_arg', baz='baz_arg')
 'foo_arg'
 ```
 
+<a name="family"> </a>
+
 ##### 协议族
 
 &emsp; &emsp; 协议族，指包含 PCAP 文件特有的 `Global Header` 和 `Frame Header` 以及计算机网络 TCP/IP 四层架构在内的所有协议，在 `jspcap/protocols/` 中实现。但由于能力和时间所限，目前仅完成了链路层 Ethernet 等，网络层 IPv4 和 IPv6 等，及传输层 TCP 和 UDP 等的解析。
@@ -728,9 +819,13 @@ Info(foo='foo_arg', bar='bar_arg', baz='baz_arg')
 
 &emsp; &emsp; 由于 `jspcap` 采取了**流式读取**的策略，在协议族中数据帧以 `io.BytesIO` 的形式传递，内存占用极小。但这使其变为 IO 密集型程序，后期或考虑协程（coroutine）进行优化。
 
+<a name="exceptions"> </a>
+
 ##### 异常类
 
 &emsp; &emsp; 异常类，特指在 `jspcap/exceptions.py` 中声明的异常。这些异常由 `BaseException` 派生，是为用户定制异常。笔者曾在 [`jsntlib`](https://github.com/JarryShaw/jsntlib) 的开发中探讨过如何定制化异常信息，但此处并无此需求，故略去。
+
+<a name="jsformat"> </a>
 
 #### 格式输出（Dumper）
 
@@ -752,11 +847,13 @@ Info(foo='foo_arg', bar='bar_arg', baz='baz_arg')
 
 &emsp; &emsp; 需要指出的是，`jsformat` 中亦使用了抽象基类来对代码实现进行精简和优化，具体派生逻辑如下图所示：
 
-![](doc/jsformat.jpg)
+![](doc/jsformat.png)
 
 &emsp; &emsp; 同 `jspcap` 所存在的问题，`jsformat` 采取了**流式输出**的策略，在头文件中文件指针以 `io.FileIO` 的形式传递，内存占用极小。但这使其变为 IO 密集型程序，后期或考虑协程（coroutine）进行优化。
 
 &nbsp;
+
+<a name="report"> </a>
 
 ## 项目总结
 
@@ -774,4 +871,4 @@ Info(foo='foo_arg', bar='bar_arg', baz='baz_arg')
 
  - 拓展 `jsformat` 使之可以导出更多的文件格式
 
-此外，在图形界面中还需解决菜单的状态切换，以替代当前的状态检查。更多的信息，可以在本项目的 [repo](https://github.com/JarryShaw/jspcap) 查看。
+此外，在图形界面中还需解决菜单的状态切换，以替代当前的状态检查。更多的信息，可以在本项目的 [repo](https://github.com/JarryShaw/TreeViewer) 查看。

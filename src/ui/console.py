@@ -16,8 +16,8 @@ import webbrowser
 # PCAP Viewer Implementation on Console
 
 
+from jspcap import Extractor
 from jspcap.exceptions import FileError
-from jspcap.extractor import Extractor
 
 
 # platform specific settings
@@ -284,7 +284,7 @@ class Display:
     ##########################################################################
 
     def repo_cmd(self, *, root='init'):
-        webbrowser.open('https://github.com/JarryShaw/jspcap/')
+        webbrowser.open('https://github.com/JarryShaw/TreeViewer/')
         return root
 
     def open_cmd(self, *, root='init'):

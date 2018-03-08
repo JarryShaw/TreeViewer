@@ -1022,7 +1022,7 @@ class Display:
 
     # View on GitHub
     def repo_cmd(self):
-        webbrowser.open('https://github.com/JarryShaw/jspcap/')
+        webbrowser.open('https://github.com/JarryShaw/TreeViewer/')
 
     ##########################################################################
     # Utilities.

@@ -1,7 +1,5 @@
 # TreeViewer
 
-&nbsp;
-
  > This program is the assignment of Python 101 (SJTU).
 
 &emsp; `TreeViewer` is a `Tkinter` based pcap extractor application.
@@ -10,7 +8,7 @@
 
 &emsp; Monitoring software may use `libpcap` and/or `WinPcap` to capture packets travelling over a network and, in newer versions, to transmit packets on a network at the link layer, as well as to get a list of network interfaces for possible use with `libpcap` or `WinPcap`.
 
- > &emsp; In the core of the `JSPCAP` project, it works with the support of `jspcap` and `jsformat`, which can both be found in three projects above and are maintained in the [`dev`](https://github.com/JarryShaw/jspcap/tree/master/dev/) folder.
+ > &emsp; In the core of the `JSPCAP` project, it works with the support of [`jspcap`](https://github.com/JarryShaw/jspcap/) and [`jsformat`](https://github.com/JarryShaw/jsformat).
 
 &emsp; As for `jspcap` and `jsformat`, they are two open-source library written in Python (version 3.6), with generally no requirements or third-party dependencies.
 
@@ -20,4 +18,4 @@
 
 &emsp; And one more thing to say about, that a `macOS` platform original UI using `PyObjc` library and `xib` is under construction. But no idea if it can be finished before the deadline.
 
-&emsp; Notice that the whole project is developed in `Python 3.6` and its compatibility hasn't been tested.
+> Note that the whole project only supports Python versions __since 3.6__
