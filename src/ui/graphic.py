@@ -23,8 +23,8 @@ from tkinter.filedialog import askopenfilename, asksaveasfilename
 from tkinter.messagebox import askokcancel, showerror, showinfo, showwarning
 from tkinter.scrolledtext import ScrolledText
 
-from jspcap import Extractor
-from jspcap.exceptions import FileError
+from pcapkit.foundation.extraction import Extractor
+from pcapkit.utilities.exceptions import FileError
 
 
 # macOS only:

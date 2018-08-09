@@ -16,8 +16,8 @@ import webbrowser
 # PCAP Viewer Implementation on Console
 
 
-from jspcap import Extractor
-from jspcap.exceptions import FileError
+from pcapkit.foundation.extraction import Extractor
+from pcapkit.utilities.exceptions import FileError
 
 
 # platform specific settings
