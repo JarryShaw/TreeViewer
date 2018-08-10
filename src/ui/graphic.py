@@ -1059,14 +1059,14 @@ class Display:
 
         ifnm = name or askopenfilename(
             parent=self.master, title='Please select a file ...',
-            filetypes=[('PCAP Files', '*.pcap'), ('All Files', '*.*')],
+            filetypes=[('PCAP Files', '*.pcap'), ('CAP Files', '*.cap'), ('All Files', '*.*')],
             initialdir='./', initialfile='in.pcap'
         )
         ifnm = ifnm.strip()
 
         if pathlib.Path(ifnm).is_file():
             try:
-                self._ext = Extractor(fin=ifnm, fout='assets/out', fmt='tree', auto=False, extension=False)
+                self._ext = Extractor(fin=ifnm, fout='assets/out', format='tree', auto=False, extension=False)
             except FileError:
                 showerror('Unsupported file format!', 'Please retry.')
                 self.button.place()
@@ -1221,7 +1221,7 @@ class Display:
         )
         if file_:
             try:
-                ext = Extractor(fmt=fmt, fin=self._ext.input, fout=file_, auto=False)
+                ext = Extractor(format=fmt, fin=self._ext.input, fout=file_, auto=False)
             except FileNotFoundError:
                 showerror('Unable to export.', "Original file '{}' is missing.".format(self._ext.input))
             else:

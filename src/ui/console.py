@@ -263,7 +263,7 @@ class Display:
             if path in QUIT:
                 return None
             try:
-                ext = Extractor(fmt=fmt, fin=self.__ext.input, fout=path, auto=False)
+                ext = Extractor(format=fmt, fin=self.__ext.input, fout=path, auto=False)
                 print('\n🍺Exporting...')
 
                 # extracting pcap file
@@ -305,7 +305,7 @@ class Display:
         self.__frames = []
         try:
             print('\n🚨Loading file {}...'.format(fin))
-            self.__ext = Extractor(fin=fin, fout='assets/out', fmt='tree', auto=False, extension=False)
+            self.__ext = Extractor(fin=fin, fout='assets/out', format='tree', auto=False, extension=False)
 
             # extracting pcap file
             print('🍺Extracting...')
