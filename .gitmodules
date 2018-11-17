@@ -1,0 +1,6 @@
+[submodule "src/pypcapkit"]
+	path = src/pypcapkit
+	url = https://github.com/JarryShaw/PyPCAPKit
+[submodule "src/dictdumper"]
+	path = src/dictdumper
+	url = https://github.com/JarryShaw/DictDumper
